@@ -1,0 +1,16 @@
+wazuh:
+  server_ip: "192.168.0.114"
+  alerts_log_path: "/var/ossec/logs/alerts/alerts.json"
+  generated_log_path: "./data/generated-alerts.json"
+
+siem:
+  api_base_url: "http://localhost:8000"
+  ingest_endpoint: "/api/v1/logs"
+  storage_path: "./data/siem-ingested.json"
+
+pipeline:
+  poll_interval_seconds: 60
+  severity_levels:
+    high: 10
+    critical: 12
+  output_filtered_path: "./data/filtered-critical-high.json"

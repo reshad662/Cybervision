@@ -1,0 +1,100 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background: #0b0f1a;
+  color: #f4f6fb;
+}
+
+header {
+  padding: 32px 48px;
+  background: linear-gradient(120deg, #1f2a58, #101524);
+}
+
+header h1 {
+  margin: 0 0 8px;
+  font-size: 32px;
+}
+
+header p {
+  margin: 0;
+  color: #c8d2ff;
+}
+
+main {
+  padding: 32px 48px 64px;
+}
+
+.summary {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.summary div {
+  flex: 1;
+  background: #141a2d;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.summary h2 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  color: #a8b4e8;
+}
+
+.summary p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.table-wrapper {
+  background: #141a2d;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #1c2340;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 14px 16px;
+  border-bottom: 1px solid #222a45;
+}
+
+tbody tr:hover {
+  background: #1a223d;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.badge.high {
+  background: #ff9f43;
+  color: #1b0f00;
+}
+
+.badge.critical {
+  background: #ff4d4f;
+  color: #220000;
+}
+
+.empty {
+  text-align: center;
+  color: #8a93b8;
+}

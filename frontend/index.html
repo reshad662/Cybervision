@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cybervision SIEM Dashboard</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Cybervision SIEM</h1>
+      <p>Live alerts collected from Wazuh and analyzed by Gemini.</p>
+    </header>
+
+    <main>
+      <section class="summary">
+        <div>
+          <h2>Last refresh</h2>
+          <p id="last-refresh">--</p>
+        </div>
+        <div>
+          <h2>Total alerts</h2>
+          <p id="total-alerts">0</p>
+        </div>
+      </section>
+
+      <section class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Received</th>
+              <th>Severity</th>
+              <th>Agent</th>
+              <th>Rule</th>
+              <th>Analysis</th>
+            </tr>
+          </thead>
+          <tbody id="alerts-body">
+            <tr>
+              <td colspan="5" class="empty">No alerts yet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <script>
+      async function loadAlerts() {
+        const response = await fetch("/api/v1/logs?limit=100");
+        const data = await response.json();
+        const body = document.getElementById("alerts-body");
+        body.innerHTML = "";
+
+        if (!data.length) {
+          body.innerHTML = '<tr><td colspan="5" class="empty">No alerts yet.</td></tr>';
+        } else {
+          data.forEach((alert) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td>${alert.received_at}</td>
+              <td><span class="badge ${alert.severity}">${alert.severity}</span></td>
+              <td>${alert.alert?.agent?.name ?? "unknown"}</td>
+              <td>${alert.alert?.rule?.description ?? "n/a"}</td>
+              <td>${alert.analysis?.analysis ?? "n/a"}</td>
+            `;
+            body.appendChild(row);
+          });
+        }
+
+        document.getElementById("total-alerts").textContent = data.length;
+        document.getElementById("last-refresh").textContent = new Date().toLocaleString();
+      }
+
+      loadAlerts();
+      setInterval(loadAlerts, 30000);
+    </script>
+  </body>
+</html>
